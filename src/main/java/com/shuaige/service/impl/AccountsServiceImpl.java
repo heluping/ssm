@@ -5,6 +5,7 @@ import com.shuaige.model.Accounts;
 import com.shuaige.service.inter.AccountsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,9 +21,10 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
+    @Transactional
     public int insertOne(Accounts accounts) {
         int num = accountsDao.insertOne(accounts);
-        System.out.println(num);
+        int i = 1/0;
         return 0;
     }
 }

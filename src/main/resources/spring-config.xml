@@ -58,6 +58,25 @@
         <property name="sqlSessionFactoryBeanName" value="sessionFactory" />
     </bean>
 
+    <!-- 事物配置 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="c3p0"/>
+    </bean>
+    <!-- 配置事物通知 -->
+    <tx:advice id="interceptor" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 设置find 开头 的查询方法，都是只读的 -->
+            <tx:method name="find*" read-only="true"/>
+            <!-- 设置隔离级别 -->
+            <tx:method name="*" isolation="DEFAULT"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- aop增强 -->
+    <aop:config>
+        <!-- 引用事物通知  表示 com.shuaige.service.impl 包下面  所有的类， 任意参数的方法 -->
+        <aop:pointcut id="point" expression="execution(* com.shuaige.service.impl.*.*(..))"/>
+        <aop:advisor advice-ref="interceptor" pointcut-ref="point" />
+    </aop:config>
 
     <!-- 开启注解扫描 -->
     <context:component-scan base-package="com.shuaige">

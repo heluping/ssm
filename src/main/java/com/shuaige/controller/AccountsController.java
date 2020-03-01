@@ -18,10 +18,15 @@ public class AccountsController {
 
     @RequestMapping("/accounts")
     public @ResponseBody HashMap<String, Object> accounts(){
-        List<Accounts> accountsList = accountsService.findAll();
+
+        Accounts accounts = new Accounts();
+        accounts.setName("fen");
+        accounts.setMoney(100);
+        accountsService.insertOne(accounts);
+
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("code", 0);
-        hashMap.put("list", accountsList);
+        hashMap.put("list", 1);
         return hashMap;
     }
 }
