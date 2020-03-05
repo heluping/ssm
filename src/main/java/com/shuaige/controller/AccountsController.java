@@ -20,7 +20,7 @@ public class AccountsController {
     public @ResponseBody HashMap<String, Object> accounts(){
 
         Accounts accounts = new Accounts();
-        accounts.setName("fen");
+        accounts.setName("唉");
         accounts.setMoney(100);
         accountsService.insertOne(accounts);
 

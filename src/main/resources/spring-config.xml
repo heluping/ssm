@@ -65,10 +65,11 @@
     <!-- 配置事物通知 -->
     <tx:advice id="interceptor" transaction-manager="transactionManager">
         <tx:attributes>
-            <!-- 设置find 开头 的查询方法，都是只读的 -->
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
             <tx:method name="find*" read-only="true"/>
-            <!-- 设置隔离级别 -->
-            <tx:method name="*" isolation="DEFAULT"/>
+            <tx:method name="*" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
     <!-- aop增强 -->
